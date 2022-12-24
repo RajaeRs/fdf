@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 17:56:02 by rrasezin          #+#    #+#             */
-/*   Updated: 2022/12/19 19:22:21 by rrasezin         ###   ########.fr       */
+/*   Updated: 2022/12/25 00:12:00 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 l_point	*new_point(int x, int y, int z, int color)
 {
 	l_point	*map_point;
+	float	angle;
 
+	angle = (38 * 3.14) / 180;
 	map_point = malloc(sizeof(l_point));
 	if (!map_point)
 		return (NULL);
-	map_point -> x_map = x;
-	map_point -> y_map = y;
+	map_point -> x_map = (x*15 - y*15)*cos(angle)+100;
+	// map_point -> x_map = x*15;
+	map_point -> y_map = (x*15 + y*15)*sin(angle) - z +50;
+	// map_point -> y_map = y*15;
 	map_point -> z_map = z;
 	map_point -> color = color;
 	map_point -> next_point = NULL;
