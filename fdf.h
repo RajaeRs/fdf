@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 17:53:41 by rrasezin          #+#    #+#             */
-/*   Updated: 2022/12/24 23:48:10 by rrasezin         ###   ########.fr       */
+/*   Updated: 2022/12/31 03:53:53 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <mlx.h>
 
 typedef struct	m_point{
-    double		x_map;
-    double		y_map;
+    int				x_map;
+    int				y_map;
 	int 			z_map;
     int				color;
 	struct	m_point	*next_point;
@@ -36,7 +36,7 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
-typedef struct s_mlx
+typedef struct	s_mlx
 {
     void    *mlx_ptr;
     void    *win;
@@ -48,27 +48,28 @@ typedef struct s_mlx
 	int		xx;
 	int		x;
 	int		y;
-}    t_mlx;
+}    			t_mlx;
 
-typedef struct	s_line{
-	int		dx;
-	int		dy;
-	int		p;
-	double	x1;
-	double	y1;
-	double	x2;
-	double	y2;
+typedef struct	s_line
+{
+	float	dx;
+	float	dy;
+	float	x;
+	float	y;
+	float	step;
+	int		i;
 }				t_line;
 
 int		ft_atoi(const char *str);
 l_point	*new_point(int x, int y, int z, int color);
-void	add_next_point(l_point **point, l_point *new_point);
-void	add_bottom_point(l_point **point, l_point *new_point);
-l_point	*get_point(int fd, int y, int x, int BUFFER_SIZE);
+void	add_next_point(l_point *point, l_point *new_point);
+void	add_bottom_point(l_point *point, l_point *new_point);
+l_point	*get_point(int fd, int y, int x);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int     get_line_number(char *map_id);
 int	    get_colomn_number(char	*map_id);
-l_point	*get_map(char *map_id, int y, int yy);
+void	iso(l_point *p);
+void    draw(t_data *data, l_point *p);
 
 #endif

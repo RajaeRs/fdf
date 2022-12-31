@@ -6,25 +6,21 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 17:56:02 by rrasezin          #+#    #+#             */
-/*   Updated: 2022/12/25 00:12:00 by rrasezin         ###   ########.fr       */
+/*   Updated: 2022/12/31 03:23:41 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../fdf.h"
 
 l_point	*new_point(int x, int y, int z, int color)
 {
 	l_point	*map_point;
-	float	angle;
 
-	angle = (38 * 3.14) / 180;
 	map_point = malloc(sizeof(l_point));
 	if (!map_point)
 		return (NULL);
-	map_point -> x_map = (x*15 - y*15)*cos(angle)+100;
-	// map_point -> x_map = x*15;
-	map_point -> y_map = (x*15 + y*15)*sin(angle) - z +50;
-	// map_point -> y_map = y*15;
+	map_point -> x_map = x; 
+	map_point -> y_map = y;
 	map_point -> z_map = z;
 	map_point -> color = color;
 	map_point -> next_point = NULL;
@@ -39,7 +35,7 @@ static int hex_to_int(const char *hex_str)
 	
 	color = 0;
 	if (hex_str == NULL)
-		return (65535);
+		return (16764464);
 	else
 	{
 		hex_str = hex_str + 2;
@@ -58,33 +54,61 @@ static int hex_to_int(const char *hex_str)
 	return (color);
 }
 
-// i pass the variabl save as argument just because i cant declar mor than 5 variabls;
-l_point	*get_point(int fd, int y, int x, int BUFFER_SIZE)
+l_point	*point_data(char **line, int x, int y)
+{
+	l_point *point;
+	int		z;
+	int		color;
+
+	z = ft_atoi(line[x]);
+	color = hex_to_int(ft_strnstr(line[x], "0x", 6));
+	point = new_point(x, y, z, color);
+	return (point);
+}
+
+void	free_line(char **line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		free(line[i]);
+		i++;
+	}
+	free(line);
+}
+l_point	*get_point(int fd, int y, int x)
 {
 	l_point	*point;
-	l_point	*next_point;
-	l_point	*bottom_point;
+	char	*map;
 	static char	**line;
 	static char **next_line;
 
 	if (x == 0)
 	{
 		if (y == 0)
-			line = ft_split(get_next_line(fd, BUFFER_SIZE), ' ');
-		else 
+		{
+			map = get_next_line(fd, 6000);
+			line = ft_split(map, ' ');
+			free (map);
+		}
+		else
 			line = next_line;
 	}
-	point = new_point(x, y, ft_atoi(line[x]), hex_to_int(ft_strnstr(line[x], "0x", 6)));
-	if (line[x+1] != '\0')
-		next_point = new_point(x+1, y, ft_atoi(line[x+1]), hex_to_int(ft_strnstr(line[x+1], "0x", 6)));
-	if (line[x+1] != '\0')
-		add_next_point(&point, next_point);
+	point = point_data(line, x, y);
+	if (line[x+1] != '\0' )
+		add_next_point(point, point_data(line, x+1, y));
 	if (x == 0)
-		next_line = ft_split(get_next_line(fd, BUFFER_SIZE), ' ');
+	{
+		map = get_next_line(fd, 6000);
+		next_line = ft_split(map, ' ');
+		free (map);
+	}
 	if (next_line != NULL)
-		bottom_point = new_point(x, y+1, ft_atoi(next_line[x]), hex_to_int(ft_strnstr(next_line[x], "0x", 6)));
-	if (next_line != NULL)
-		add_bottom_point(&point, bottom_point);
+		add_bottom_point(point, point_data(next_line, x, y+1));
+	if (line[x+1] == '\0')
+		free_line(line);
 	return (point);
 }
 // int	main()
