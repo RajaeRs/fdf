@@ -6,13 +6,14 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:30:17 by rrasezin          #+#    #+#             */
-/*   Updated: 2022/12/24 19:31:37 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/01/02 02:48:32 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
-static	int	word_count(const char *s, char c)
+
+static	int	word_count(char *s, char c)
 {
 	int	i;
 	int	count;
@@ -36,12 +37,13 @@ static	int	word_count(const char *s, char c)
 	return (count);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**new_s;
 	int		i_word;
 	int		i_char;
 	int		start;
+
 	i_char = 0;
 	i_word = 0;
 	if (!s)
@@ -59,5 +61,6 @@ char	**ft_split(char const *s, char c)
 		if (i_char < (word_count(s, c)))
 			new_s[i_char++] = ft_substr(s, start, (i_word - start));
 	}
+	free (s);
 	return (new_s);
 }

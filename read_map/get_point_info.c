@@ -6,19 +6,19 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 17:53:59 by rrasezin          #+#    #+#             */
-/*   Updated: 2022/12/31 02:54:35 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/01/02 02:52:47 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
 //------------- the number of line -------------
-int		get_line_number(char *map_id)
+int	get_line_number(char *map_id)
 {
-	int fd;
-	int line_number;
-	char *line;
-	
+	int		fd;
+	int		line_number;
+	char	*line;
+
 	line_number = 0;
 	fd = open(map_id, O_RDONLY);
 	line = get_next_line(fd, 6000);
@@ -28,9 +28,9 @@ int		get_line_number(char *map_id)
 		line_number++;
 		line = get_next_line(fd, 6000);
 	}
-	// free (line);
+	free (line);
 	close(fd);
-	return(line_number);
+	return (line_number);
 }
 
 static	int	word_count(const char *s, char c)
@@ -56,17 +56,15 @@ static	int	word_count(const char *s, char c)
 	}
 	return (count);
 }
+
 // ----------- the number of column ---------------
 int	get_colomn_number(char	*map_id)
 {
 	int		fd;
 	int		colomn_number;
 	char	*line;
-	// char	**colomn;
-	// int		i;
 
 	colomn_number = 0;
-	// i = 0;
 	fd = open(map_id, O_RDONLY);
 	line = get_next_line(fd, 1);
 	close (fd);
@@ -82,7 +80,6 @@ int	get_colomn_number(char	*map_id)
 // 	int		line_number;
 // 	int 	colomn_number;
 // 	int 	i;
-	
 // 	i = 0;
 // 	colomn_number = 0;
 // 	line_number = get_colomn_number("test_maps/50-4.fdf");
