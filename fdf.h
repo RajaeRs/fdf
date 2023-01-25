@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 22:11:08 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/01/25 16:49:30 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/01/25 23:41:53 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ typedef struct s_mouve
 	float		up;
 	float		m_left;
 	float		m_up;
-	float		angle;
-	float		angleb;
 }				t_mouve;
 
 typedef struct s_mlx
@@ -66,6 +64,8 @@ typedef struct s_mlx
 	int		p_type;
 	int		colomn;
 	int		line;
+	float	ang1;
+	float	ang2;
 }				t_mlx;
 
 

@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 16:48:51 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/01/25 16:50:45 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/01/25 23:42:28 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	initialize(t_mlx *mouve)
 	mouve->m.y_scr = 0;
 	mouve->m.zoom_in = WIDTH / 3;
 	mouve->m.zoom_out = HEIGHT / 2;
+	mouve->ang1 = 30;
+	mouve->ang2 = 30;
 }
 
 t_map	**allocation(t_mlx *d)

@@ -1,5 +1,6 @@
 NAME = fdf
 
+NAMEB = fdf_b
 # HEADER = fdf.h 
 
 # PRINTF = printf/libftprintf.a
@@ -26,20 +27,23 @@ OBJB = $(SRCB:.c=.o)
 	cc -Wall -Wextra -O3 -Werror -Imlx -c $< -o $@
 
 
-$(NAME): $(OBJB) 
-	cc -I /usr/local/include  $(OBJB) -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+$(NAME): $(OBJM) 
+	cc -I /usr/local/include  $(OBJM) -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+
+$(NAMEB): $(OBJB) 
+	cc -I /usr/local/include  $(OBJB) -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -o $(NAMEB)
 
 all: $(NAME)
 
-# bonus: $(NAME)
+bonus: $(NAMEB)
 
 clean: 
-	rm -rf  $(OBJB)
+	rm -rf  $(OBJM) $(OBJB)
 
 fclean: clean 
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(NAMEB)
 
-re: fclean $(NAME)
+re: fclean $(NAME) 
 
 .PHONY: re clean fclean all printf
 

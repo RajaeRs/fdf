@@ -6,12 +6,11 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:28:12 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/01/25 16:48:59 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:24:32 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
-
 
 void	draw(char *titel)
 {
