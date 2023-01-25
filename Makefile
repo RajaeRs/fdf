@@ -4,13 +4,20 @@ NAME = fdf
 
 # PRINTF = printf/libftprintf.a
 
-SRC =  ./draw/draw_map.c ./draw/iso_projection.c ./draw/line.c \
-./read_map/link_point.c ./read_map/get_map.c ./read_map/get_point_info.c \
-./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c \
-./libft_utils/ft_bzero.c  ./libft_utils/ft_atoi.c  ./libft_utils/ft_calloc.c  ./libft_utils/ft_split.c \
-./libft_utils/ft_strlen.c  ./libft_utils/ft_strncmp.c ./libft_utils/ft_strnstr.c ./libft_utils/ft_substr.c
+SRC =  main.c $(addprefix libft_utiles/, ft_atoi.c ft_bzero.c ft_calloc.c ft_isdigit.c ft_split.c ft_strlen.c ft_strncmp.c ft_strnstr.c ft_substr.c) \
+				$(addprefix get_next_line/, get_next_line.c get_next_line_utils.c) \
+				$(addprefix read/, hex_to_int.c map_size.c map.c) \
+				$(addprefix draw/, dda.c projection.c hooks.c utils.c)
 
-OBJ = $(SRC:.c=.o)
+SRCM = $(SRC) draw/draw_mondatory.c
+
+SRCB = $(SRC) $(addprefix bonus/, draw_bonus.c key_hooks.c mouse_hook.c)
+
+# OBJ  = $(SRC)
+
+OBJM = $(SRCM:.c=.o)
+
+OBJB = $(SRCB:.c=.o)
 
 # $(PRINTF):
 # 	make -C printf
@@ -19,13 +26,15 @@ OBJ = $(SRC:.c=.o)
 	cc -Wall -Wextra -O3 -Werror -Imlx -c $< -o $@
 
 
-$(NAME): $(OBJ) 
-	cc -I /usr/local/include  $(OBJ) -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+$(NAME): $(OBJB) 
+	cc -I /usr/local/include  $(OBJB) -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 all: $(NAME)
 
+# bonus: $(NAME)
+
 clean: 
-	rm -rf  $(OBJ)
+	rm -rf  $(OBJB)
 
 fclean: clean 
 	rm -rf $(NAME)

@@ -5,33 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/11 17:53:41 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/01/02 03:02:20 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/01/13 22:11:08 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/01/25 16:49:30 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
-# define FDF_H 
-# define WIDTH 1000 
-# define LENGTH  1000
+# define FDF_H
+# define WIDTH 1000
+# define HEIGHT 1000
 
-# include "libft_utils/libft.h"
 # include "get_next_line/get_next_line.h"
+# include "libft_utiles/libft.h"
 # include <fcntl.h>
+# include <stdlib.h>
 # include <stdio.h>
-# include <math.h>
 # include <mlx.h>
+# include <math.h>
 
-typedef struct m_point{
-	int				x_map;
-	int				y_map;
-	int				z_map;
-	int				color;
-	struct m_point	*next_point;
-	struct m_point	*bottom_point;
-}				t_point;
+typedef struct s_map
+{
+	int	x;
+	int	y;
+	int	z;
+	int	c;
+}			t_map;
 
-typedef struct s_data{
+typedef struct s_data
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -39,19 +40,34 @@ typedef struct s_data{
 	int		endian;
 }				t_data;
 
+typedef struct s_mouve
+{
+	int			x_scr;
+	int			y_scr;
+	int			zoom_in;
+	int			zoom_out;
+	float		xz;
+	float		yz;
+	float		up;
+	float		m_left;
+	float		m_up;
+	float		angle;
+	float		angleb;
+}				t_mouve;
+
 typedef struct s_mlx
 {
-	void	*mlx_ptr;
+	void	*ptr;
 	void	*win;
-	t_data	img;
-	int		map_id;
-	t_point	*point;
-	t_point	*n_point;
-	int		yy;
-	int		xx;
-	int		x;
-	int		y;
-}			t_mlx;
+	t_data	i;
+	t_map	**map;
+	t_map	**map_i;
+	t_mouve	m;
+	int		p_type;
+	int		colomn;
+	int		line;
+}				t_mlx;
+
 
 typedef struct s_line
 {
@@ -63,16 +79,30 @@ typedef struct s_line
 	int		i;
 }				t_line;
 
-int		ft_atoi(const char *str);
-t_point	*new_point(int x, int y, int z, int color);
-void	add_next_point(t_point *point, t_point *new_point);
-void	add_bottom_point(t_point *point, t_point *new_point);
-t_point	*get_point(int fd, int y, int x);
+typedef struct s_rgb
+{
+	float	r;
+	float	g;
+	float	b;
+	int		rr;
+	int		gg;
+	int		bb;
+	int		color;
+}				t_rgb;
 
+t_map	**read_map(char *titel, int line_nb, int col_nb);
+int		hex_to_int(const char *hex_str);
+void	map_size(char *titel, int *y, int *x);
+void	iso(t_mlx *p);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int		get_line_number(char *map_id);
-int		get_colomn_number(char	*map_id);
-void	iso(t_point *p, t_mlx *mlx);
-void	draw(t_data *data, t_point *p);
+void	dda(t_mlx *mlx, t_map **map, int line, int colomn);
+void	draw(char *titel);
+int		key_control(int key, t_mlx *param);
+int		clear(int key, t_mlx *d);
+int		esc(int key, t_mlx *d);
+t_map	**allocation(t_mlx *d);
+void	projection(t_mlx *p, int p_type);
+int    mouse_control(int key, int x, int y, t_mlx *p);
+void	initialize(t_mlx *mouve);
 
 #endif

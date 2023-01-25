@@ -6,16 +6,11 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:13:11 by rrasezin          #+#    #+#             */
-/*   Updated: 2022/12/11 18:27:09 by rrasezin         ###   ########.fr       */
+/*   Updated: 2022/10/21 23:21:09 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	ft_isdigit(int src)
-{
-	if (src >= 48 && src <= 57)
-		return (1);
-	return (0);
-}
+#include "libft.h"
 
 int	ft_atoi(const char *str)
 {

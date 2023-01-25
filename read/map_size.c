@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   map_size.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 12:30:17 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/01/02 02:48:32 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/01/14 22:11:46 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/01/20 23:18:12 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "../fdf.h"
 
 static	int	word_count(char *s, char c)
 {
@@ -37,30 +36,31 @@ static	int	word_count(char *s, char c)
 	return (count);
 }
 
-char	**ft_split(char *s, char c)
+void	map_size(char *titel, int *y, int *x)
 {
-	char	**new_s;
-	int		i_word;
-	int		i_char;
-	int		start;
+	int		fd;
+	char	*line;
 
-	i_char = 0;
-	i_word = 0;
-	if (!s)
-		return (NULL);
-	new_s = (char **)ft_calloc((word_count(s, c) + 1), sizeof(char *));
-	if (!new_s)
-		return (NULL);
-	while (s[i_word] != '\0')
+	fd = open(titel, O_RDONLY);
+	line = get_next_line(fd, 1);
+	(*x) = word_count(line, ' ');
+	while (line != NULL)
 	{
-		while (s[i_word] == c && s[i_word] != '\0')
-			i_word++;
-		start = i_word;
-		while (s[i_word] != c && s[i_word] != '\0')
-			i_word++;
-		if (i_char < (word_count(s, c)))
-			new_s[i_char++] = ft_substr(s, start, (i_word - start));
+		(*y)++;
+		if (line)
+			free(line);
+		line = get_next_line(fd, 100);
 	}
-	free (s);
-	return (new_s);
+	close (fd);
 }
+
+// int		main()
+// {
+// 	int	x;
+// 	int	y;
+
+// 	x = 0;
+// 	y = 0;
+// 	map_size("../maps/elem-fract.fdf", &y, &x);
+// 	printf("y = %d, x = %d\n", y ,x);
+// }
