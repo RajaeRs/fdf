@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 03:51:47 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/01/24 16:15:08 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/01/29 14:19:26 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,16 @@ static void	line_d(t_mlx *mlx, t_map **map, int y, int x)
 	l.step = fmax(fabs(l.dx), fabs(l.dy));
 	l.dx = l.dx / l.step;
 	l.dy = l.dy / l.step;
-	l.x = map[y][x].x  + mlx->m.zoom_out;
+	l.x = map[y][x].x + mlx->m.zoom_out;
 	l.y = map[y][x].y + mlx->m.zoom_in;
 	l.i = 1;
 	while (l.i <= l.step)
 	{
 		color = intp(l.step - 1, map[y][x].c, map[y][x + 1].c, l.i - 1);
-		my_mlx_pixel_put(&mlx->i, l.x+mlx->m.m_left, l.y+mlx->m.m_up, color);
+		if (l.x + mlx->m.m_left < WIDTH && l.y + mlx->m.m_up < HEIGHT
+			&& l.x + mlx->m.m_left > 0 && l.y + mlx->m.m_up > 0)
+			my_mlx_pixel_put(&mlx->i, l.x + mlx->m.m_left,
+				l.y + mlx->m.m_up, color);
 		l.x += l.dx;
 		l.y += l.dy;
 		l.i++;
@@ -66,7 +69,7 @@ static void	line_d_d(t_mlx *mlx, t_map **map, int y, int x)
 	l.step = fmax(fabs(l.dx), fabs(l.dy));
 	l.dx = l.dx / l.step;
 	l.dy = l.dy / l.step;
-	l.x = map[y][x].x + mlx->m.zoom_out ;
+	l.x = map[y][x].x + mlx->m.zoom_out;
 	l.y = map[y][x].y + mlx->m.zoom_in;
 	l.i = 1;
 	while (l.i <= l.step)
@@ -75,7 +78,10 @@ static void	line_d_d(t_mlx *mlx, t_map **map, int y, int x)
 			color = map[y][x].c;
 		else
 			color = intp(l.step - 1, map[y][x].c, map[y + 1][x].c, l.i - 1);
-		my_mlx_pixel_put(&mlx->i, l.x+mlx->m.m_left, l.y+mlx->m.m_up, color);
+		if (l.x + mlx->m.m_left < WIDTH && l.y + mlx->m.m_up < HEIGHT
+			&& l.x + mlx->m.m_left > 0 && l.y + mlx->m.m_up > 0)
+			my_mlx_pixel_put(&mlx->i, l.x + mlx->m.m_left,
+				l.y + mlx->m.m_up, color);
 		l.x += l.dx;
 		l.y += l.dy;
 		l.i++;
@@ -89,7 +95,7 @@ void	dda(t_mlx *mlx, t_map **map, int line, int colomn)
 
 	x = 0;
 	y = 0;
-	while (y < line - 1 )
+	while (y < line - 1)
 	{
 		while (x < colomn - 1)
 		{
@@ -104,29 +110,3 @@ void	dda(t_mlx *mlx, t_map **map, int line, int colomn)
 	free(map[y]);
 	free(map);
 }
-
-
-// void	dda(t_mlx *mlx, t_map **map, int line, int colomn)
-// {
-// 	int		x;
-// 	int		y;
-
-// 	x = mlx->m.m_left;
-// 	y = mlx->m.m_up;
-// 	while (y < line - 1 && map[y][x].y < HEIGHT/3)
-// 	{
-// 		while (x < colomn - 1 && map[y][x].x < WIDTH/2)
-// 		{
-// 			if (map[y][x].x > -(WIDTH/2) && map[y][x].y > -(HEIGHT/3))
-// 			{
-// 				line_d(mlx, map, y, x);
-// 				line_d_d(mlx, map, y, x);
-// 			}
-// 			x++;
-// 		}
-// 		x = 0;
-// 		y++;
-// 	}
-// 	free(map[y]);
-// 	free(map);
-// }

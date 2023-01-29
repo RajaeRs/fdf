@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:54:36 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/01/20 23:18:37 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/01/28 19:49:39 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,3 @@ t_map	**read_map(char *titel, int line_nb, int col_nb)
 	close(fd);
 	return (map);
 }
-
-// int	main()
-// {
-// 	t_map	**map;
-// 	int y = 0;
-// 	int	x = 0;
-// 	int	line = 0;
-// 	int colomn = 0;
-
-// 	map_size("../maps/julia.fdf", &line, &colomn);
-// 	map = read_map("../maps/julia.fdf", line, colomn);
-// 	while (y < line)
-// 	{
-// 		while (x < colomn)
-// 		{
-// 			printf ("%d,%d  ", map[y][x].z, map[y][x].c);
-// 			x++;
-// 		}
-// 		printf ("\n");
-// 		x = 0;
-// 		y++;
-// 	}
-// }

@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 22:11:46 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/01/20 23:18:12 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:12:52 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,24 @@ void	map_size(char *titel, int *y, int *x)
 {
 	int		fd;
 	char	*line;
+	int		m;
 
 	fd = open(titel, O_RDONLY);
 	line = get_next_line(fd, 1);
 	(*x) = word_count(line, ' ');
+	m = (*x);
 	while (line != NULL)
 	{
 		(*y)++;
 		if (line)
 			free(line);
 		line = get_next_line(fd, 100);
+		if (line && m != word_count(line, ' '))
+		{
+			write (1, "Found wrong line length.\n", 25);
+			free(line);
+			exit(0);
+		}
 	}
 	close (fd);
 }
-
-// int		main()
-// {
-// 	int	x;
-// 	int	y;
-
-// 	x = 0;
-// 	y = 0;
-// 	map_size("../maps/elem-fract.fdf", &y, &x);
-// 	printf("y = %d, x = %d\n", y ,x);
-// }

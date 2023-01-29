@@ -1,7 +1,7 @@
 NAME = fdf
 
-NAMEB = fdf_b
-# HEADER = fdf.h 
+NAMEB = fdfb
+HEADER = fdf.h 
 
 # PRINTF = printf/libftprintf.a
 
@@ -28,10 +28,10 @@ OBJB = $(SRCB:.c=.o)
 
 
 $(NAME): $(OBJM) 
-	cc -I /usr/local/include  $(OBJM) -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	cc -I /usr/local/include  $(OBJM) -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -o fdf
 
 $(NAMEB): $(OBJB) 
-	cc -I /usr/local/include  $(OBJB) -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -o $(NAMEB)
+	cc -I /usr/local/include  $(OBJB) -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -o fdf
 
 all: $(NAME)
 

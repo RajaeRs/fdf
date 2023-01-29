@@ -6,61 +6,74 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 01:09:08 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/01/25 23:44:52 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:30:25 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	iso(t_mlx *p)
+static void	isometrice(t_mlx *p)
 {
-	float	ang1;
-	float	ang2;
-	float	i;
-	float	j;
-	int		x;
-	int		y;
+	t_rotat	r;
 
-	x = 0;
-	y = 0;
-	ang1 = (p->ang1 * 3.14) / 180;
-	ang2 = (p->ang2 * 3.14) / 180;
-	while (y < p->line)
+	r.x = 0;
+	r.y = 0;
+	r.i_ang = (30 * 3.14) / 180;
+	r.r_ang = (p->ang * 3.14) / 180;
+	while (r.y < p->line)
 	{	
-		while (x < p->colomn)
+		while (r.x < p->colomn)
 		{
-			i = p->map[y][x].x * ((float)HEIGHT / (float)(p->m.xz * p->colomn));
-			j = p->map[y][x].y * ((float)WIDTH / (float)(p->m.yz * p->line));
-			p->map_i[y][x].x = (int)(i*cos(ang1) - j*cos(ang1));
-			p->map_i[y][x].y = (int)(i*sin(ang2) + j*sin(ang2)) - p->map[y][x].z * p->m.up;
-			p->map_i[y][x].z = p->map[y][x].z;
-			p->map_i[y][x].c = p->map[y][x].c;
-			x++;
+			r.i = p->map[r.y][r.x].x * ((float)WIDTH
+					/ (float)(p->m.xz * p->colomn)) - 500;
+			r.j = p->map[r.y][r.x].y * ((float)HEIGHT
+					/ (float)(p->m.yz * p->line)) - 325;
+			r.z = p->map[r.y][r.x].z * p->m.up;
+			r.r_x = (float)r.i * cos(r.r_ang) + (float)r.j * -sin(r.r_ang);
+			r.r_y = (float)r.i * sin(r.r_ang) + (float)r.j * cos(r.r_ang);
+			p->map_i[r.y][r.x].x = (int)((r.r_x - r.r_y) * cos(r.i_ang));
+			p->map_i[r.y][r.x].y = (int)((r.r_x + r.r_y) * sin(r.i_ang) - r.z);
+			p->map_i[r.y][r.x].z = r.z;
+			p->map_i[r.y][r.x++].c = p->map[r.y][r.x].c;
 		}
-		x = 0;
-		y++;
+		r.x = 0;
+		r.y++;
+	}
+}
+
+static void	oblique(t_mlx *p)
+{
+	t_rotat	r;
+
+	r.x = 0;
+	r.y = 0;
+	r.i_ang = (30 * 3.14) / 180;
+	r.r_ang = (p->ang * 3.14) / 180;
+	while (r.y < p->line)
+	{	
+		while (r.x < p->colomn)
+		{
+			r.i = p->map[r.y][r.x].x * ((float)WIDTH
+					/ (float)(p->m.xz * p->colomn)) - 500;
+			r.j = p->map[r.y][r.x].y * ((float)HEIGHT
+					/ (float)(p->m.yz * p->line)) - 325;
+			r.z = p->map[r.y][r.x].z * p->m.up;
+			r.r_x = (float)r.i * cos(r.r_ang) + (float)r.j * -sin(r.r_ang);
+			r.r_y = (float)r.i * sin(r.r_ang) + (float)r.j * cos(r.r_ang);
+			p->map_i[r.y][r.x].x = (int)(r.r_x + 0.5 * r.z * cos(r.i_ang));
+			p->map_i[r.y][r.x].y = (int)(r.r_y + 0.5 * r.z * sin(r.i_ang));
+			p->map_i[r.y][r.x].z = r.z;
+			p->map_i[r.y][r.x++].c = p->map[r.y][r.x].c;
+		}
+		r.x = 0;
+		r.y++;
 	}
 }
 
 void	projection(t_mlx *p, int p_type)
 {
 	if (p_type == 34)
-		iso(p);
-	// if (p_type == 35)
-	// 	iso(p);
+		isometrice(p);
+	if (p_type == 31)
+		oblique(p);
 }
-// int	main()
-// {
-	//int y = 0;
-	//int	x = 0;
-	//while (y < d.line)
-	//{
-	//	while (x < d.colomn)
-	//	{
-	//		printf ("x:%d, y:%d, z:%d, c: %d\n", d.map[y][x].x, d.map[y][x].y, d.map[y][x].z, d.map[y][x].c);
-	//		x++;
-	//	}
-	//	x = 0;
-	//	y++;
-	//}
-// }
