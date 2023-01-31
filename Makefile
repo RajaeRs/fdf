@@ -6,7 +6,7 @@ HEADER = fdf.h
 # PRINTF = printf/libftprintf.a
 
 SRC =  main.c $(addprefix libft_utiles/, ft_atoi.c ft_bzero.c ft_calloc.c ft_isdigit.c ft_split.c ft_strlen.c ft_strncmp.c ft_strnstr.c ft_substr.c) \
-				$(addprefix get_next_line/, get_next_line.c get_next_line_utils.c) \
+				$(addprefix get_next_line_fdf/, get_next_line.c get_next_line_utils.c) \
 				$(addprefix read/, hex_to_int.c map_size.c map.c) \
 				$(addprefix draw/, dda.c projection.c hooks.c utils.c)
 

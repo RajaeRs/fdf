@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 22:11:08 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/01/29 00:17:40 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/01/31 16:47:02 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define HEIGHT 1300
 # define WIDTH 2000
 
-# include "get_next_line/get_next_line.h"
+# include "get_next_line_fdf/get_next_line.h"
 # include "libft_utiles/libft.h"
 # include "data_type.h"
 # include <fcntl.h>

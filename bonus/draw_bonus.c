@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:28:12 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/01/28 17:45:08 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:07:12 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,34 @@ void	fdf(t_mlx *p)
 {
 	char	*str;
 
+	str = "By: rrasezin";
+	mlx_string_put(p->ptr, p->win, 15, 50, 0xbebebe, str);
+	str = "1337 student ^_^";
+	mlx_string_put(p->ptr, p->win, 55, 70, 0xbebebe, str);
 	str = " *****  *****   *****";
-	mlx_string_put(p->ptr, p->win, 20, 100, 0xCB1C1C, str);
+	mlx_string_put(p->ptr, p->win, 20, 140, 0xCB1C1C, str);
 	str = " *      *    *  *    ";
-	mlx_string_put(p->ptr, p->win, 20, 110, 0xCF2D2D, str);
+	mlx_string_put(p->ptr, p->win, 20, 150, 0xCF2D2D, str);
 	str = " *****  *    *  *****";
-	mlx_string_put(p->ptr, p->win, 20, 120, 0xD43F3F, str);
+	mlx_string_put(p->ptr, p->win, 20, 160, 0xD43F3F, str);
 	str = " *      *    *  *    ";
-	mlx_string_put(p->ptr, p->win, 20, 130, 0xD85050, str);
+	mlx_string_put(p->ptr, p->win, 20, 170, 0xD85050, str);
 	str = " *      *****   *    ";
-	mlx_string_put(p->ptr, p->win, 20, 140, 0xDC6262, str);
+	mlx_string_put(p->ptr, p->win, 20, 180, 0xDC6262, str);
 }
 
 void	guide(t_mlx *p)
 {
-	mlx_string_put(p->ptr, p->win, 25, 200, 0xDB5C5C, "GUIDE TO USE :");
-	mlx_string_put(p->ptr, p->win, 15, 250, 0xE17373, "o Altitud : + or -");
-	mlx_string_put(p->ptr, p->win, 15, 280, 0xE58585, "o Rotation :");
-	mlx_string_put(p->ptr, p->win, 25, 310, 0xE99696, "~ Axe Z : A & D");
-	mlx_string_put(p->ptr, p->win, 15, 340, 0xEEA7A7, "o Shift : < v ^ >");
-	mlx_string_put(p->ptr, p->win, 15, 370, 0xF2B9B9, "o Zoom : use the mouse");
-	mlx_string_put(p->ptr, p->win, 15, 400, 0xF6CACA, "o Reset : R");
-	mlx_string_put(p->ptr, p->win, 15, 430, 0xFBDCDC, "o Projection :");
-	mlx_string_put(p->ptr, p->win, 25, 460, 0xFFEDED, "~ Oblique : O");
-	mlx_string_put(p->ptr, p->win, 25, 490, 0xFFEEEE, "~ Isometric : I");
+	mlx_string_put(p->ptr, p->win, 25, 250, 0xDB5C5C, "GUIDE TO USE :");
+	mlx_string_put(p->ptr, p->win, 15, 280, 0xE17373, "o Altitud : + or -");
+	mlx_string_put(p->ptr, p->win, 15, 310, 0xE58585, "o Rotation :");
+	mlx_string_put(p->ptr, p->win, 25, 340, 0xE99696, "~ Center : A & D");
+	mlx_string_put(p->ptr, p->win, 15, 370, 0xEEA7A7, "o Shift : < v ^ >");
+	mlx_string_put(p->ptr, p->win, 15, 400, 0xF2B9B9, "o Zoom : use the mouse");
+	mlx_string_put(p->ptr, p->win, 15, 430, 0xF6CACA, "o Reset : R");
+	mlx_string_put(p->ptr, p->win, 15, 460, 0xFBDCDC, "o Projection :");
+	mlx_string_put(p->ptr, p->win, 25, 490, 0xFFEDED, "~ Oblique : O");
+	mlx_string_put(p->ptr, p->win, 25, 520, 0xFFEEEE, "~ Isometric : I");
 }
 
 void	draw(char *titel)
